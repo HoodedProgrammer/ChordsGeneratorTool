@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace ChordsGenerator
 {
@@ -18,20 +20,52 @@ namespace ChordsGenerator
         private int      _height = 320;
         private int      _width = 220;
 
-        private class ChordItem
+        public class Chord
         {
             public string Name { get; set; }
-            public string FilePath { get; set; }
+            public int FirstFret { get; set; }
+            public List<int>[] StringFrets { get; set; } = new List<int>[6];
+            public bool[] StringPlayed { get; set; } = new bool[6];
 
-            public ChordItem(string name, string filePath)
+            public string FilePath { get; private set; }
+
+            public Chord(string filePath)
             {
-                Name = name;
                 FilePath = filePath;
+                for (int i = 0; i < 6; i++)
+                    StringFrets[i] = new List<int>();
+
+                LoadFromFile(filePath);
             }
-            
-            public override string ToString() // Important: override ToString() to control what is displayed
+
+            public override string ToString() => Name;
+
+            private void LoadFromFile(string filePath)
             {
-                return Name; // only the chord name shows in the list
+                foreach (var line in File.ReadLines(filePath))
+                {
+                    if (line.StartsWith("name=")) 
+                        Name = line.Substring(5).Trim();
+                    if (line.StartsWith("firstFret=")) 
+                        FirstFret = int.Parse(line.Substring("firstFret=".Length).Trim());
+                    
+                    if (line.StartsWith("StringNb"))
+                    {
+                        int index = int.Parse(line.Substring(8, 1)) - 1;
+                        string fretText = line.Substring(line.IndexOf('=') + 1).Trim();
+                        if (!string.IsNullOrEmpty(fretText))
+                            foreach (var f in fretText.Split(',')) StringFrets[index].Add(int.Parse(f.Trim()));
+                    }
+
+                    if (line.StartsWith("isStringNb") && line.Contains("Played"))
+                    {
+                        int startIndex = "isStringNb".Length;
+                        int endIndex = line.IndexOf("Played");
+                        int stringNumber = int.Parse(line.Substring(startIndex, endIndex - startIndex));
+                        int arrayIndex = stringNumber - 1;
+                        StringPlayed[arrayIndex] = bool.Parse(line.Substring(line.IndexOf('=') + 1).Trim());
+                    }
+                }
             }
         }
 
@@ -50,9 +84,7 @@ namespace ChordsGenerator
             heightTextBox.Text          = _args != null && _args.Length >= 4 && int.TryParse(_args[3], out int height) ? height.ToString() : _height.ToString();
 
             if (!string.IsNullOrWhiteSpace(settingsTextBox.Text) && Directory.Exists(settingsTextBox.Text))            
-                initChordsList(settingsTextBox.Text);
-            
-            
+                initChordsList(settingsTextBox.Text);            
         }
 
         private void initChordsList (String filepath)
@@ -63,15 +95,9 @@ namespace ChordsGenerator
                 chordsFoundList.Items.Clear();                    
 
             foreach (var file in files)
-            {                
-                string name = null;
-
-                foreach (var line in File.ReadLines(file))                
-                    if (line.StartsWith("name="))
-                        name = line.Substring(5).Trim();
-                
-                if (!string.IsNullOrEmpty(name))                                    
-                    chordsFoundList.Items.Add(new ChordItem(name, file));
+            {
+                Chord chord = new Chord(file);
+                chordsFoundList.Items.Add(chord); // ToString() returns Name
             }
             chordsFoundList.Sorted = true;            
         }
@@ -89,10 +115,8 @@ namespace ChordsGenerator
 
         private void targetBrowseBtn_Click(object sender, EventArgs e)
         {
-            if (settingsBrowserDialog.ShowDialog() == DialogResult.OK)
-            {
-                whereToGenerateTextBox.Text = settingsBrowserDialog.SelectedPath;                
-            }
+            if (settingsBrowserDialog.ShowDialog() == DialogResult.OK)            
+                whereToGenerateTextBox.Text = settingsBrowserDialog.SelectedPath;                            
         }
 
         private void generateChordBtn_Click(object sender, EventArgs e)
@@ -102,82 +126,30 @@ namespace ChordsGenerator
                 MessageBox.Show("Please select at least one chord to generate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
-            // Init variables for the chord
-            string name = null;
-            
-            int firstFret = 0;
-            List<int>[] stringFrets = new List<int>[6]; // list of frets per string
-            bool[] bools = new bool[6];
 
-            // Initialize lists
-            for (int i = 0; i < 6; i++)
-                stringFrets[i] = new List<int>();
-
-            // Variable value assignment for the chord            
-            ChordItem chord = (ChordItem)chordsFoundList.SelectedItem;
-            string chordFilename = chord.FilePath;            
-
-            foreach (var line in File.ReadLines(chordFilename))
+            if (chordsFoundList.SelectedItem is Chord chord)
             {
-                // Populate Chord name
-                if (line.StartsWith("name="))
-                    name = line.Substring(5).Trim();                    
-                                        
-                // Populate first fret
-                if (line.StartsWith("firstFret="))
-                    firstFret = int.Parse(line.Substring("firstFret=".Length).Trim());
+                //Call the image generation function
+                Bitmap bmp = GenerateImage(chord.Name, chord.FirstFret, chord.StringFrets, chord.StringPlayed, false);
 
-                // Populate Chords positions
-                if (line.StartsWith("StringNb"))
+                //If conditions permits, store the image as png
+                string outputPath = whereToGenerateTextBox.Text;
+                if (string.IsNullOrWhiteSpace(outputPath) || !Directory.Exists(outputPath))
                 {
-                    // Example line: "StringNb5=1,3"
-                    int index = int.Parse(line.Substring(8, 1)) - 1; // StringNb1 → index 0
-                    string fretText = line.Substring(line.IndexOf('=') + 1).Trim();
-                    
-                    if (!string.IsNullOrEmpty(fretText))
-                        foreach (var f in fretText.Split(','))
-                            stringFrets[index].Add(int.Parse(f.Trim()));
+                    MessageBox.Show("Please provide a valid folder path to generate images.", "Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-
-                // Populate String isPlayed
-                if (line.StartsWith("isStringNb") && line.Contains("Played"))
-                {
-                    int startIndex = "isStringNb".Length; // 10
-                    int endIndex = line.IndexOf("Played");
-                    int stringNumber = int.Parse(line.Substring(startIndex, endIndex - startIndex));
-                    int arrayIndex = stringNumber - 1; // Convert 1-based to 0-based
-
-                    bools[arrayIndex] = bool.Parse(line.Substring(line.IndexOf('=') + 1).Trim());
-                }
-            }                            
-
-            GenerateImage(name, firstFret, stringFrets, bools);
+                string safeName = string.Concat(chord.Name.Split(Path.GetInvalidFileNameChars()));
+                bmp.Save(Path.Combine(outputPath, $"chord_{safeName}.png"), System.Drawing.Imaging.ImageFormat.Png);
+            }                
         }
 
         /* ============================================= IMAGE GENERATION ============================================= */
-        private void GenerateImage(string name, int firstFret, List<int>[] stringFrets, bool[] stringPlayed)
+        private Bitmap GenerateImage(string name, int firstFret, List<int>[] stringFrets, bool[] stringPlayed, bool isPreview = true)
         {
 
-
-            string outputPath = whereToGenerateTextBox.Text;
-            
-            if (string.IsNullOrWhiteSpace(outputPath) || !Directory.Exists(outputPath))
-            {                                
-                MessageBox.Show( "Please provide a valid folder path to generate images.", "Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int width = int.TryParse(widthTextBox.Text, out int w) ? w : _width;
-            int height = int.TryParse(heightTextBox.Text, out int h) ? h : _height;
-
-            // Margins
-            float marginX = width * 0.15f;
-            float marginY = height * 0.15f;
-
-            // Spacing
-            float stringSpacing = (width - 2 * marginX) / 5f; // 6 strings → 5 gaps
-            float fretSpacing = (height - 2 * marginY) / 4f;   // 4 frets
+            int width  = (isPreview) ? previewBox.Width  : int.TryParse(widthTextBox.Text, out int w) ? w : _width;
+            int height = (isPreview) ? previewBox.Height : int.TryParse(heightTextBox.Text, out int h) ? h : _height;
 
             int[] strumIndices = stringsToStrumList.CheckedIndices.Cast<int>().ToArray();
 
@@ -185,6 +157,14 @@ namespace ChordsGenerator
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 g.Clear(Color.White);
+
+                // Margins
+                float marginX = width * 0.15f;
+                float marginY = height * 0.15f;
+
+                // Spacing
+                float stringSpacing = (width - 2 * marginX) / 5f; // 6 strings → 5 gaps
+                float fretSpacing = (height - 2 * marginY) / 4f;   // 4 frets
 
                 // Fonts proportional
                 Font titleFont = new Font("Arial", height / 16f, FontStyle.Bold);
@@ -265,10 +245,11 @@ namespace ChordsGenerator
                     if (startBar != -1)
                         DrawFingerOrBar(g, marginX, marginY, stringSpacing, fretSpacing, startBar, endBar, fret - firstFret);
                 }
-            }
 
-            string safeName = string.Concat(name.Split(Path.GetInvalidFileNameChars()));
-            bmp.Save(Path.Combine(outputPath, $"chord_{safeName}.png"), System.Drawing.Imaging.ImageFormat.Png);
+            }
+            
+            return bmp;
+            
         }
 
         private void DrawFingerOrBar(Graphics g, float startX, float startY, float stringSpacing, float fretSpacing, int startBar, int endBar, int fretOffset)
@@ -297,14 +278,43 @@ namespace ChordsGenerator
 
         /* ============================================= HANDLERS ============================================= */
         /* --- Management of the "chords found" list --- */
-        private void chordsFoundList_ItemCheck(object sender, EventArgs e)
+        private void chordsFoundList_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             CheckedListBox list = (CheckedListBox)sender;
-            int selectedIndex = list.SelectedIndex;
 
-            if (selectedIndex >= 0)                            
-                for (int i = 0; i < list.Items.Count; i++)                
-                    list.SetItemChecked(i, i == selectedIndex);                
+            for (int i = 0; i < list.Items.Count; i++)
+                if (i != e.Index)
+                    list.SetItemChecked(i, false);
+
+            if ( e.NewValue == CheckState.Checked && list.SelectedItem is Chord chord)
+            {
+                Bitmap preview = GenerateImage(chord.Name, chord.FirstFret, chord.StringFrets, chord.StringPlayed, true);
+                previewBox.Image = preview;
+            }
+            else
+                previewBox.Image = null;
+        }
+
+        /* --- Management of the "Strings to strum" list --- */
+        private void stringsToStrumList_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            this.BeginInvoke
+            (
+                (Action)
+                (
+                    () =>
+                    {
+                        if (chordsFoundList.CheckedItems.Count > 0)
+                        {
+                            Chord chord = chordsFoundList.CheckedItems[0] as Chord;
+                            Bitmap preview = GenerateImage(chord.Name, chord.FirstFret, chord.StringFrets, chord.StringPlayed, true);
+                            if (previewBox.Image != null)
+                                previewBox.Image.Dispose();
+                            previewBox.Image = preview;
+                        }
+                    }
+                )
+            );
         }
     }
 }

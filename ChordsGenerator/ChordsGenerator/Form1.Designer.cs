@@ -48,21 +48,25 @@
             this.label4 = new System.Windows.Forms.Label();
             this.whereToGenerateTextBox = new System.Windows.Forms.TextBox();
             this.targetBrowseBtn = new System.Windows.Forms.Button();
+            this.previewBox = new System.Windows.Forms.PictureBox();
+            this.chordPreviewLabel = new System.Windows.Forms.Label();
             this.chordsGroupbox.SuspendLayout();
             this.stringsToStrumGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.previewBox)).BeginInit();
             this.SuspendLayout();
             // 
             // chordsFoundList
             // 
             this.chordsFoundList.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.chordsFoundList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.chordsFoundList.CheckOnClick = true;
             this.chordsFoundList.FormattingEnabled = true;
             this.chordsFoundList.Location = new System.Drawing.Point(6, 19);
             this.chordsFoundList.Name = "chordsFoundList";
             this.chordsFoundList.Size = new System.Drawing.Size(228, 287);
             this.chordsFoundList.TabIndex = 0;
-            this.chordsFoundList.SelectedIndexChanged += new System.EventHandler(this.chordsFoundList_ItemCheck);
+            this.chordsFoundList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chordsFoundList_ItemCheck);
             // 
             // chordsGroupbox
             // 
@@ -79,7 +83,7 @@
             this.stringsToStrumGroupBox.Controls.Add(this.stringsToStrumList);
             this.stringsToStrumGroupBox.Location = new System.Drawing.Point(258, 75);
             this.stringsToStrumGroupBox.Name = "stringsToStrumGroupBox";
-            this.stringsToStrumGroupBox.Size = new System.Drawing.Size(200, 321);
+            this.stringsToStrumGroupBox.Size = new System.Drawing.Size(182, 321);
             this.stringsToStrumGroupBox.TabIndex = 2;
             this.stringsToStrumGroupBox.TabStop = false;
             this.stringsToStrumGroupBox.Text = "Strings to strum";
@@ -88,6 +92,7 @@
             // 
             this.stringsToStrumList.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.stringsToStrumList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.stringsToStrumList.CheckOnClick = true;
             this.stringsToStrumList.FormattingEnabled = true;
             this.stringsToStrumList.Items.AddRange(new object[] {
             "E - 6th",
@@ -98,8 +103,9 @@
             "E - 1st"});
             this.stringsToStrumList.Location = new System.Drawing.Point(6, 20);
             this.stringsToStrumList.Name = "stringsToStrumList";
-            this.stringsToStrumList.Size = new System.Drawing.Size(188, 287);
+            this.stringsToStrumList.Size = new System.Drawing.Size(170, 287);
             this.stringsToStrumList.TabIndex = 1;
+            this.stringsToStrumList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.stringsToStrumList_ItemCheck);
             // 
             // groupBox1
             // 
@@ -109,7 +115,7 @@
             this.groupBox1.Controls.Add(this.heightLabel);
             this.groupBox1.Controls.Add(this.widthTextBox);
             this.groupBox1.Controls.Add(this.heightTextBox);
-            this.groupBox1.Location = new System.Drawing.Point(474, 78);
+            this.groupBox1.Location = new System.Drawing.Point(457, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 89);
             this.groupBox1.TabIndex = 3;
@@ -177,7 +183,7 @@
             this.settingsTextBox.Enabled = false;
             this.settingsTextBox.Location = new System.Drawing.Point(122, 12);
             this.settingsTextBox.Name = "settingsTextBox";
-            this.settingsTextBox.Size = new System.Drawing.Size(325, 20);
+            this.settingsTextBox.Size = new System.Drawing.Size(244, 20);
             this.settingsTextBox.TabIndex = 4;
             // 
             // label3
@@ -193,7 +199,7 @@
             // 
             this.browseBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.browseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.browseBtn.Location = new System.Drawing.Point(450, 12);
+            this.browseBtn.Location = new System.Drawing.Point(372, 12);
             this.browseBtn.Name = "browseBtn";
             this.browseBtn.Size = new System.Drawing.Size(68, 21);
             this.browseBtn.TabIndex = 6;
@@ -206,9 +212,9 @@
             this.generateChordBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.generateChordBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.generateChordBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.generateChordBtn.Location = new System.Drawing.Point(474, 185);
+            this.generateChordBtn.Location = new System.Drawing.Point(457, 359);
             this.generateChordBtn.Name = "generateChordBtn";
-            this.generateChordBtn.Size = new System.Drawing.Size(200, 49);
+            this.generateChordBtn.Size = new System.Drawing.Size(200, 36);
             this.generateChordBtn.TabIndex = 7;
             this.generateChordBtn.Text = "Generate chord image";
             this.generateChordBtn.UseVisualStyleBackColor = false;
@@ -230,20 +236,40 @@
             this.whereToGenerateTextBox.Enabled = false;
             this.whereToGenerateTextBox.Location = new System.Drawing.Point(121, 39);
             this.whereToGenerateTextBox.Name = "whereToGenerateTextBox";
-            this.whereToGenerateTextBox.Size = new System.Drawing.Size(326, 20);
+            this.whereToGenerateTextBox.Size = new System.Drawing.Size(245, 20);
             this.whereToGenerateTextBox.TabIndex = 9;
             // 
             // targetBrowseBtn
             // 
             this.targetBrowseBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.targetBrowseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.targetBrowseBtn.Location = new System.Drawing.Point(450, 36);
+            this.targetBrowseBtn.Location = new System.Drawing.Point(372, 36);
             this.targetBrowseBtn.Name = "targetBrowseBtn";
             this.targetBrowseBtn.Size = new System.Drawing.Size(68, 23);
             this.targetBrowseBtn.TabIndex = 10;
             this.targetBrowseBtn.Text = "Browse";
             this.targetBrowseBtn.UseVisualStyleBackColor = false;
             this.targetBrowseBtn.Click += new System.EventHandler(this.targetBrowseBtn_Click);
+            // 
+            // previewBox
+            // 
+            this.previewBox.BackColor = System.Drawing.Color.White;
+            this.previewBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.previewBox.Location = new System.Drawing.Point(481, 132);
+            this.previewBox.Name = "previewBox";
+            this.previewBox.Size = new System.Drawing.Size(153, 213);
+            this.previewBox.TabIndex = 11;
+            this.previewBox.TabStop = false;
+            // 
+            // chordPreviewLabel
+            // 
+            this.chordPreviewLabel.AutoSize = true;
+            this.chordPreviewLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chordPreviewLabel.Location = new System.Drawing.Point(514, 112);
+            this.chordPreviewLabel.Name = "chordPreviewLabel";
+            this.chordPreviewLabel.Size = new System.Drawing.Size(75, 13);
+            this.chordPreviewLabel.TabIndex = 12;
+            this.chordPreviewLabel.Text = "Chord preview";
             // 
             // Form1
             // 
@@ -252,6 +278,8 @@
             this.BackColor = System.Drawing.Color.LightBlue;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(689, 407);
+            this.Controls.Add(this.chordPreviewLabel);
+            this.Controls.Add(this.previewBox);
             this.Controls.Add(this.targetBrowseBtn);
             this.Controls.Add(this.whereToGenerateTextBox);
             this.Controls.Add(this.label4);
@@ -271,6 +299,7 @@
             this.stringsToStrumGroupBox.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.previewBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -297,6 +326,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox whereToGenerateTextBox;
         private System.Windows.Forms.Button targetBrowseBtn;
+        private System.Windows.Forms.PictureBox previewBox;
+        private System.Windows.Forms.Label chordPreviewLabel;
     }
 }
 
