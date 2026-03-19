@@ -1,0 +1,70 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\hissella\\Documents\\Visual Studio 2022\\Projects\\ChordsGenerator\\ChordsGenerator\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{97441A7E-D4DA-47FB-85A0-24832689BE64}|ChordsGenerator\\ChordsGenerator.csproj|c:\\users\\hissella\\documents\\visual studio 2022\\projects\\chordsgenerator\\chordsgenerator\\chordsgenerator\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97441A7E-D4DA-47FB-85A0-24832689BE64}|ChordsGenerator\\ChordsGenerator.csproj|solutionrelative:chordsgenerator\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97441A7E-D4DA-47FB-85A0-24832689BE64}|ChordsGenerator\\ChordsGenerator.csproj|c:\\users\\hissella\\documents\\visual studio 2022\\projects\\chordsgenerator\\chordsgenerator\\chordsgenerator\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{97441A7E-D4DA-47FB-85A0-24832689BE64}|ChordsGenerator\\ChordsGenerator.csproj|solutionrelative:chordsgenerator\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97441A7E-D4DA-47FB-85A0-24832689BE64}|ChordsGenerator\\ChordsGenerator.csproj|c:\\users\\hissella\\documents\\visual studio 2022\\projects\\chordsgenerator\\chordsgenerator\\chordsgenerator\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97441A7E-D4DA-47FB-85A0-24832689BE64}|ChordsGenerator\\ChordsGenerator.csproj|solutionrelative:chordsgenerator\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\hissella\\Documents\\Visual Studio 2022\\Projects\\ChordsGenerator\\ChordsGenerator\\ChordsGenerator\\Form1.cs",
+              "RelativeDocumentMoniker": "ChordsGenerator\\Form1.cs",
+              "ToolTip": "C:\\Users\\hissella\\Documents\\Visual Studio 2022\\Projects\\ChordsGenerator\\ChordsGenerator\\ChordsGenerator\\Form1.cs [Design]",
+              "RelativeToolTip": "ChordsGenerator\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-16T16:39:22.881Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\hissella\\Documents\\Visual Studio 2022\\Projects\\ChordsGenerator\\ChordsGenerator\\ChordsGenerator\\Form1.cs",
+              "RelativeDocumentMoniker": "ChordsGenerator\\Form1.cs",
+              "ToolTip": "C:\\Users\\hissella\\Documents\\Visual Studio 2022\\Projects\\ChordsGenerator\\ChordsGenerator\\ChordsGenerator\\Form1.cs",
+              "RelativeToolTip": "ChordsGenerator\\Form1.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAiwC0AAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-16T16:55:17.397Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\hissella\\Documents\\Visual Studio 2022\\Projects\\ChordsGenerator\\ChordsGenerator\\ChordsGenerator\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "ChordsGenerator\\Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\hissella\\Documents\\Visual Studio 2022\\Projects\\ChordsGenerator\\ChordsGenerator\\ChordsGenerator\\Form1.Designer.cs",
+              "RelativeToolTip": "ChordsGenerator\\Form1.Designer.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAqwCoAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-16T17:27:35.528Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

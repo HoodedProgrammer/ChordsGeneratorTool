@@ -1,0 +1,14 @@
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\bin\Debug\ChordsGenerator.exe.config
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\bin\Debug\ChordsGenerator.exe
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\bin\Debug\ChordsGenerator.pdb
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\obj\Debug\ChordsGenerator.csproj.AssemblyReference.cache
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\obj\Debug\ChordsGenerator.Properties.Resources.resources
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\obj\Debug\ChordsGenerator.csproj.GenerateResource.cache
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\obj\Debug\ChordsGenerator.csproj.CoreCompileInputs.cache
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\obj\Debug\ChordsGenerator.exe
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\obj\Debug\ChordsGenerator.pdb
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\obj\Debug\ChordsGenerator.Form1.resources
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\bin\Debug\ChordsGenerator.exe.manifest
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\bin\Debug\ChordsGenerator.application
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\obj\Debug\ChordsGenerator.exe.manifest
+C:\Users\hissella\Documents\Visual Studio 2022\Projects\ChordsGenerator\ChordsGenerator\ChordsGenerator\obj\Debug\ChordsGenerator.application
