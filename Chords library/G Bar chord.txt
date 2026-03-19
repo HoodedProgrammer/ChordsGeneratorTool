@@ -1,0 +1,26 @@
+name=G Bar
+firstFret=3
+
+#E string
+StringNb6=3
+isStringNb6Played=true
+
+#A string
+StringNb5=3,5
+isStringNb5Played=true
+
+#D string
+StringNb4=3,5
+isStringNb4Played=true
+
+#G string
+StringNb3=3,4
+isStringNb3Played=true
+
+#B string
+StringNb2=3 
+isStringNb2Played=true
+
+#E string
+StringNb1=3
+isStringNb1Played=true
