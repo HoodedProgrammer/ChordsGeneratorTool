@@ -1,1 +1,0 @@
-start "" "C:\path\to\ChordsGenerator.exe" "C:\path\to\Chords\library" "C:\path\to\target\directory\where\to\generate\image" width height
