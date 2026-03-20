@@ -50,6 +50,8 @@
             this.targetBrowseBtn = new System.Windows.Forms.Button();
             this.previewBox = new System.Windows.Forms.PictureBox();
             this.chordPreviewLabel = new System.Windows.Forms.Label();
+            this.filenameTextBox = new System.Windows.Forms.TextBox();
+            this.extensionLabel = new System.Windows.Forms.Label();
             this.chordsGroupbox.SuspendLayout();
             this.stringsToStrumGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -64,7 +66,7 @@
             this.chordsFoundList.FormattingEnabled = true;
             this.chordsFoundList.Location = new System.Drawing.Point(6, 19);
             this.chordsFoundList.Name = "chordsFoundList";
-            this.chordsFoundList.Size = new System.Drawing.Size(228, 287);
+            this.chordsFoundList.Size = new System.Drawing.Size(228, 302);
             this.chordsFoundList.TabIndex = 0;
             this.chordsFoundList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chordsFoundList_ItemCheck);
             // 
@@ -73,7 +75,7 @@
             this.chordsGroupbox.Controls.Add(this.chordsFoundList);
             this.chordsGroupbox.Location = new System.Drawing.Point(12, 75);
             this.chordsGroupbox.Name = "chordsGroupbox";
-            this.chordsGroupbox.Size = new System.Drawing.Size(240, 321);
+            this.chordsGroupbox.Size = new System.Drawing.Size(240, 328);
             this.chordsGroupbox.TabIndex = 1;
             this.chordsGroupbox.TabStop = false;
             this.chordsGroupbox.Text = "Chords found";
@@ -83,7 +85,7 @@
             this.stringsToStrumGroupBox.Controls.Add(this.stringsToStrumList);
             this.stringsToStrumGroupBox.Location = new System.Drawing.Point(258, 75);
             this.stringsToStrumGroupBox.Name = "stringsToStrumGroupBox";
-            this.stringsToStrumGroupBox.Size = new System.Drawing.Size(182, 321);
+            this.stringsToStrumGroupBox.Size = new System.Drawing.Size(182, 328);
             this.stringsToStrumGroupBox.TabIndex = 2;
             this.stringsToStrumGroupBox.TabStop = false;
             this.stringsToStrumGroupBox.Text = "Strings to strum";
@@ -103,7 +105,7 @@
             "E - 1st"});
             this.stringsToStrumList.Location = new System.Drawing.Point(6, 20);
             this.stringsToStrumList.Name = "stringsToStrumList";
-            this.stringsToStrumList.Size = new System.Drawing.Size(170, 287);
+            this.stringsToStrumList.Size = new System.Drawing.Size(170, 302);
             this.stringsToStrumList.TabIndex = 1;
             this.stringsToStrumList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.stringsToStrumList_ItemCheck);
             // 
@@ -212,7 +214,7 @@
             this.generateChordBtn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.generateChordBtn.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.generateChordBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.generateChordBtn.Location = new System.Drawing.Point(457, 359);
+            this.generateChordBtn.Location = new System.Drawing.Point(457, 367);
             this.generateChordBtn.Name = "generateChordBtn";
             this.generateChordBtn.Size = new System.Drawing.Size(200, 36);
             this.generateChordBtn.TabIndex = 7;
@@ -255,7 +257,7 @@
             // 
             this.previewBox.BackColor = System.Drawing.Color.White;
             this.previewBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.previewBox.Location = new System.Drawing.Point(481, 132);
+            this.previewBox.Location = new System.Drawing.Point(481, 126);
             this.previewBox.Name = "previewBox";
             this.previewBox.Size = new System.Drawing.Size(153, 213);
             this.previewBox.TabIndex = 11;
@@ -265,11 +267,30 @@
             // 
             this.chordPreviewLabel.AutoSize = true;
             this.chordPreviewLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chordPreviewLabel.Location = new System.Drawing.Point(514, 112);
+            this.chordPreviewLabel.Location = new System.Drawing.Point(514, 106);
             this.chordPreviewLabel.Name = "chordPreviewLabel";
             this.chordPreviewLabel.Size = new System.Drawing.Size(75, 13);
             this.chordPreviewLabel.TabIndex = 12;
             this.chordPreviewLabel.Text = "Chord preview";
+            // 
+            // filenameTextBox
+            // 
+            this.filenameTextBox.Location = new System.Drawing.Point(466, 345);
+            this.filenameTextBox.Name = "filenameTextBox";
+            this.filenameTextBox.Size = new System.Drawing.Size(176, 20);
+            this.filenameTextBox.TabIndex = 13;
+            this.filenameTextBox.TextChanged += new System.EventHandler(this.filenameTextBox_TextChanged);
+            this.filenameTextBox.Enter += new System.EventHandler(this.filenameTextBox_Enter);
+            this.filenameTextBox.Leave += new System.EventHandler(this.filenameTextBox_Leave);
+            // 
+            // extensionLabel
+            // 
+            this.extensionLabel.AutoSize = true;
+            this.extensionLabel.Location = new System.Drawing.Point(643, 348);
+            this.extensionLabel.Name = "extensionLabel";
+            this.extensionLabel.Size = new System.Drawing.Size(28, 13);
+            this.extensionLabel.TabIndex = 14;
+            this.extensionLabel.Text = ".png";
             // 
             // Form1
             // 
@@ -278,6 +299,8 @@
             this.BackColor = System.Drawing.Color.LightBlue;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(689, 407);
+            this.Controls.Add(this.extensionLabel);
+            this.Controls.Add(this.filenameTextBox);
             this.Controls.Add(this.chordPreviewLabel);
             this.Controls.Add(this.previewBox);
             this.Controls.Add(this.targetBrowseBtn);
@@ -290,11 +313,12 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.stringsToStrumGroupBox);
             this.Controls.Add(this.chordsGroupbox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Image chord generator";
+            this.Click += new System.EventHandler(this.Form1_Click);
             this.chordsGroupbox.ResumeLayout(false);
             this.stringsToStrumGroupBox.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -328,6 +352,8 @@
         private System.Windows.Forms.Button targetBrowseBtn;
         private System.Windows.Forms.PictureBox previewBox;
         private System.Windows.Forms.Label chordPreviewLabel;
+        private System.Windows.Forms.TextBox filenameTextBox;
+        private System.Windows.Forms.Label extensionLabel;
     }
 }
 

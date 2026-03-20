@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+
 
 namespace ChordsGenerator
 {
@@ -19,7 +15,10 @@ namespace ChordsGenerator
         private string[] _args;
         private int      _height = 320;
         private int      _width = 220;
+        private String   _placeHolder = "Filename for your image.";
+        private bool     _isUpdating = false; // For filename management purpose
 
+        /* ============================================= CUSTOM CLASS ============================================= */
         public class Chord
         {
             public string Name { get; set; }
@@ -77,16 +76,22 @@ namespace ChordsGenerator
 
             // -------------- Init form --------------
             
-            // Default values
+            // Default values in case no arguments are passed
             settingsTextBox.Text        = _args != null && _args.Length >= 1 && !string.IsNullOrWhiteSpace(_args[0]) ? _args[0] : "";
             whereToGenerateTextBox.Text = _args != null && _args.Length >= 2 && !string.IsNullOrWhiteSpace(_args[1]) ? _args[1] : "";
             widthTextBox.Text           = _args != null && _args.Length >= 3 && int.TryParse(_args[2], out int width) ? width.ToString() : _width.ToString();
             heightTextBox.Text          = _args != null && _args.Length >= 4 && int.TryParse(_args[3], out int height) ? height.ToString() : _height.ToString();
 
+            // PlaceHolder like, for the filename textbox
+            filenameTextBox.Text = _placeHolder;
+            filenameTextBox.TextAlign = HorizontalAlignment.Center;
+            filenameTextBox.ForeColor = Color.Gray;
+
             if (!string.IsNullOrWhiteSpace(settingsTextBox.Text) && Directory.Exists(settingsTextBox.Text))            
                 initChordsList(settingsTextBox.Text);            
         }
 
+        /* --- Initialization of the "chords Found" list with the txt files present in the chords library --- */
         private void initChordsList (String filepath)
         {
             var files = Directory.GetFiles(filepath, "*.txt");
@@ -102,6 +107,11 @@ namespace ChordsGenerator
             chordsFoundList.Sorted = true;            
         }
 
+        /* --- Management of the "Form1" click, to lose focus of other components --- */
+        private void Form1_Click(object sender, EventArgs e)
+        {
+            this.ActiveControl = null;
+        }
 
         /* ============================================= BUTTONS MANAGEMENT ============================================= */
         private void browseBtn_Click(object sender, EventArgs e)
@@ -315,6 +325,48 @@ namespace ChordsGenerator
                     }
                 )
             );
+        }
+        
+        /* --- Management of the "filename" TextBox --- */
+        private void filenameTextBox_Enter(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox) sender;
+
+            if (textBox.Text == _placeHolder)
+            {
+                textBox.Text = "";
+                textBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void filenameTextBox_Leave(object sender, EventArgs e)
+        {
+            TextBox textBox = (System.Windows.Forms.TextBox)sender;
+
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Text = _placeHolder;
+                textBox.ForeColor = Color.Gray;
+            }            
+        }
+        
+        private void filenameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (_isUpdating) return;
+            _isUpdating = true;
+
+            TextBox textBox = (TextBox)sender;
+            int cursorPosition = textBox.SelectionStart;
+
+            string cleaned = string.Concat(textBox.Text.Split(Path.GetInvalidFileNameChars()));
+
+            if (textBox.Text != cleaned)
+            {
+                textBox.Text = cleaned;                
+                textBox.SelectionStart = Math.Max(0, Math.Min(cursorPosition, cleaned.Length)); // Clamp safely between 0 and new length
+            }
+
+            _isUpdating = false;
         }
     }
 }
