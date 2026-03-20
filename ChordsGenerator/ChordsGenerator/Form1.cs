@@ -149,8 +149,9 @@ namespace ChordsGenerator
                     MessageBox.Show("Please provide a valid folder path to generate images.", "Invalid Path", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                string safeName = string.Concat(chord.Name.Split(Path.GetInvalidFileNameChars()));
-                bmp.Save(Path.Combine(outputPath, $"chord_{safeName}.png"), System.Drawing.Imaging.ImageFormat.Png);
+
+                string safeName = !string.IsNullOrWhiteSpace(filenameTextBox.Text) && filenameTextBox.Text  != _placeHolder ? filenameTextBox.Text : string.Concat(chord.Name.Split(Path.GetInvalidFileNameChars())) + "_chord";
+                bmp.Save(Path.Combine(outputPath, $"{safeName}.png"), System.Drawing.Imaging.ImageFormat.Png);
             }                
         }
 
