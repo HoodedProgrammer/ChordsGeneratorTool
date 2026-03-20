@@ -1,0 +1,26 @@
+name=B
+firstFret=2
+
+#E string
+StringNb6=
+isStringNb6Played=false
+
+#A string
+StringNb5=2
+isStringNb5Played=true
+
+#D string
+StringNb4=2,4
+isStringNb4Played=true
+
+#G string
+StringNb3=2,4
+isStringNb3Played=true
+
+#B string
+StringNb2=2,4
+isStringNb2Played=true
+
+#E string
+StringNb1=2
+isStringNb1Played=true

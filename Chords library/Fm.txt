@@ -1,0 +1,26 @@
+name=Fm
+firstFret=1
+
+#E string
+StringNb6=1
+isStringNb6Played=true
+
+#A string
+StringNb5=1,3
+isStringNb5Played=true
+
+#D string
+StringNb4=1,3
+isStringNb4Played=true
+
+#G string
+StringNb3=1
+isStringNb3Played=true
+
+#B string
+StringNb2=1
+isStringNb2Played=true
+
+#E string
+StringNb1=1
+isStringNb1Played=true
